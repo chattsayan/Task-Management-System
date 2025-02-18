@@ -65,7 +65,7 @@ const AddTask = () => {
       endDate: null,
       status: "Pending",
       assignee: "",
-      priority: "P0",
+      priority: "",
     });
   };
 

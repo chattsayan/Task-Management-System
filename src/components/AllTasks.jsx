@@ -7,18 +7,17 @@ import { IoFilterSharp, IoClose } from "react-icons/io5";
 
 const AllTasks = () => {
   const tasks = useSelector(selectAllTasks);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(null);
   const [toggle, settoggle] = useState(false);
+  const [endDate, setEndDate] = useState(null);
   const [statusFilter, setStatusFilter] = useState("All");
   const [priorityFilter, setPriorityFilter] = useState("All");
 
   const filteredTasks = tasks.filter((task) => {
     const taskDate = new Date(task.startDate);
-
     const isDateInRange =
-      (!startDate || taskDate >= new Date(startDate)) &&
-      (!endDate || taskDate <= new Date(endDate));
+      (!startDate || taskDate >= startDate) &&
+      (!endDate || taskDate <= endDate);
 
     const isStatusMatch =
       statusFilter === "All" || task.status === statusFilter;
@@ -27,6 +26,14 @@ const AllTasks = () => {
       priorityFilter === "All" || task.priority === priorityFilter;
     return isDateInRange && isStatusMatch && isPriorityMatch;
   });
+
+  // Function to clear all filters
+  const clearFilters = () => {
+    setStartDate(null);
+    setEndDate(null);
+    setStatusFilter("All");
+    setPriorityFilter("All");
+  };
 
   return (
     <div className="w-[70%] mx-auto">
@@ -37,7 +44,7 @@ const AllTasks = () => {
             onClick={() => {
               settoggle(!toggle);
             }}
-            className="flex justify-center items-center p-2 bg-indigo-500 rounded-xl hover:bg-indigo-600 cursor-pointer"
+            className="flex justify-center items-center p-2 bg-indigo-500 hover:bg-indigo-700 cursor-pointer rounded-xl"
           >
             {toggle ? (
               <IoClose className="text-xl text-white" />
@@ -61,16 +68,24 @@ const AllTasks = () => {
                 <input
                   className="bg-gray-200 p-2 rounded-xl w-[60vw] sm:w-auto appearance-none"
                   type="date"
-                  value={startDate ? startDate.toLocaleDateString("en-CA") : ""}
-                  onChange={(e) => setStartDate(e.target.value)}
+                  value={startDate ? startDate.toISOString().split("T")[0] : ""}
+                  onChange={(e) => setStartDate(new Date(e.target.value))}
                 />
                 <input
                   className="bg-gray-200 p-2 rounded-xl w-[60vw] sm:w-auto appearance-none"
                   type="date"
-                  value={endDate ? endDate.toLocaleDateString("en-CA") : ""}
-                  onChange={(e) => setEndDate(e.target.value)}
+                  value={endDate ? endDate.toISOString().split("T")[0] : ""}
+                  onChange={(e) => setEndDate(new Date(e.target.value))}
                 />
               </div>
+
+              {/* Clear Filter Button */}
+              <button
+                onClick={clearFilters}
+                className="bg-red-500 hover:bg-red-600 transition duration-300 text-white p-2 rounded-xl"
+              >
+                Clear Filters
+              </button>
             </div>
           </div>
           <div className="flex gap-2 flex-col sm:flex-row items-center">
@@ -102,8 +117,9 @@ const AllTasks = () => {
           </div>
         </div>
       </div>
+
       {filteredTasks.length > 0 ? (
-        <div className="flex flex-wrap gap-y-4 gap-x-14 justify-center overflow-auto mt-5 h-[80vh] sm:h-[80vh]">
+        <div className="flex flex-wrap gap-y-4 gap-x-14 justify-center  overflow-auto mt-5 h-[80vh] sm:h-[80vh]">
           {filteredTasks.map((task) => (
             <TaskCard
               key={task.id}
