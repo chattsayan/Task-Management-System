@@ -24,30 +24,32 @@ const AddTask = () => {
     });
   };
 
-  const handleEndDateChange = (date) => {
-    if (date && date < formData.startDate) {
-      alert("End date cannot be before start date.");
-      return;
-    }
-
-    setFormData({
-      ...formData,
-      endDate: date,
-    });
-  };
-
   const handleStartDateChange = (date) => {
     // Check if date is a valid Date object
     if (date instanceof Date && !isNaN(date)) {
       setFormData({
         ...formData,
         startDate: date,
+        endDate: date > formData.endDate ? null : formData.endDate, // Reset end date if invalid
       });
     }
   };
 
+  const handleEndDateChange = (date) => {
+    setFormData({
+      ...formData,
+      endDate: date,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!formData.title.trim()) {
+      alert("Title is required.");
+      return;
+    }
+
     const serializableFormData = {
       ...formData,
       startDate: formData.startDate.toISOString(),
@@ -55,6 +57,7 @@ const AddTask = () => {
     };
     console.log(serializableFormData);
     dispatch(addTask(serializableFormData));
+
     setFormData({
       title: "",
       description: "",
@@ -62,7 +65,7 @@ const AddTask = () => {
       endDate: null,
       status: "Pending",
       assignee: "",
-      priority: "",
+      priority: "P0",
     });
   };
 
@@ -91,9 +94,11 @@ const AddTask = () => {
                   name="title"
                   value={formData.title}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
+
             <div className="flex flex-wrap -mx-3 mb-2 sm:mb-6">
               <div className="w-full px-3">
                 <label
@@ -112,6 +117,7 @@ const AddTask = () => {
                 />
               </div>
             </div>
+
             <div className="flex flex-wrap -mx-3 mb-2 sm:mb-6">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
@@ -124,9 +130,11 @@ const AddTask = () => {
                   selected={formData.startDate}
                   onChange={handleStartDateChange}
                   dateFormat="dd/MM/yyyy"
+                  minDate={new Date()} // Prevents selecting past dates
                   className="appearance-none block w-[280px] sm:w-[245px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 />
               </div>
+
               <div className="w-full md:w-1/2 px-3 mb-2 sm:mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -138,10 +146,12 @@ const AddTask = () => {
                   selected={formData.endDate}
                   onChange={handleEndDateChange}
                   dateFormat="dd/MM/yyyy"
+                  minDate={formData.startDate} // Ensures end date is not before start date
                   className="appearance-none block w-[280px] sm:w-[245px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 />
               </div>
             </div>
+
             <div className="flex flex-wrap -mx-3 mb-2 sm:mb-6">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
