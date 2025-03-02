@@ -1,91 +1,124 @@
-import {
-  MdDashboard,
-  MdOutlineTaskAlt,
-  MdAddTask,
-  MdPendingActions,
-  MdCloudDone,
-  MdOutlineAccessTimeFilled,
-  MdQueryStats,
-} from "react-icons/md";
-import { GrInProgress } from "react-icons/gr";
-import { VscTasklist } from "react-icons/vsc";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="bg-indigo-500 min-h-[100vh] sm:min-h-screen w-[5rem] sm:w-[19rem] flex flex-col gap-4 roboto-regular">
+    <div className="bg-indigo-500 min-h-[100vh] sm:min-h-screen w-[5rem] sm:w-[19rem] flex flex-col gap-4 ubuntu-bold">
       <div className="flex items-center gap-2 justify-center h-16 text-white text-2xl font-bold mt-6">
-        <VscTasklist />
+        {/* <VscTasklist /> */}
+        <img
+          src="https://www.svgrepo.com/show/182007/notebook-agenda.svg"
+          alt="logo"
+          className="w-12 h-12 md:w-14 md:h-14"
+        />
         <span className="sm:block hidden">Task Manager</span>
       </div>
       <nav className="flex gap-10 justify-start">
         <ul className="py-6 flex flex-col justify-start">
-          {/* Dashboard */}
-          <Link
-            to="/"
-            className="px-6 py-4 font-semibold text-lg text-gray-300 hover:text-gray-700 cursor-pointer flex justify-start items-center gap-2"
-          >
-            <MdDashboard className="text-2xl" />
-            <span className="sm:block hidden">Dashboard</span>
-          </Link>
-          {/* Completed Tasks */}
-          <Link
-            to="/completeTask"
-            className="px-6 py-4 font-semibold text-lg text-gray-300 hover:text-gray-700 cursor-pointer flex justify-start items-center gap-2"
-          >
-            <MdOutlineTaskAlt className="text-2xl" />
-            <span className="sm:block hidden">Completed Tasks</span>
-          </Link>
-          {/* Pending Tasks */}
-          <Link
-            to="/pendingTask"
-            className="px-6 py-4 font-semibold text-lg text-gray-300 hover:text-gray-700 cursor-pointer flex justify-start items-center gap-2"
-          >
-            <MdPendingActions className="text-2xl" />
-            <span className="sm:block hidden">Pending Tasks</span>
-          </Link>
-          {/* In Progress Tasks */}
-          <Link
-            to="/inProgressTask"
-            className="px-6 py-4 font-semibold text-lg text-gray-300 hover:text-gray-700 cursor-pointer flex justify-start items-center gap-2"
-          >
-            <GrInProgress className="text-2xl" />
-            <span className="sm:block hidden">In Progress Tasks</span>
-          </Link>
-          {/* Deployed Tasks */}
-          <Link
-            to="/deployedTask"
-            className="px-6 py-4 font-semibold text-lg text-gray-300 hover:text-gray-700 cursor-pointer flex justify-start items-center gap-2"
-          >
-            <MdCloudDone className="text-2xl" />
-            <span className="sm:block hidden">Deployed Tasks</span>
-          </Link>
-          {/* Deferred Tasks */}
-          <Link
-            to="/deferredTask"
-            className="px-6 py-4 font-semibold text-lg text-gray-300 hover:text-gray-700 cursor-pointer flex justify-start items-center gap-2"
-          >
-            <MdOutlineAccessTimeFilled className="text-2xl" />
-            <span className="sm:block hidden">Deferred Tasks</span>
-          </Link>
-
-          {/* Add New Tasks */}
-          <Link
-            to="/addTask"
-            className="px-6 py-4 font-semibold text-lg text-gray-300 hover:text-gray-700 cursor-pointer flex justify-start items-center gap-2"
-          >
-            <MdAddTask className="text-2xl" />
-            <span className="sm:block hidden">Add New Tasks</span>
-          </Link>
-
-          {/* Task Stats */}
-          <Link
-            to="/statsTask"
-            className="px-6 py-4 font-semibold text-lg text-gray-300 hover:text-gray-700 cursor-pointer flex justify-start items-center gap-2"
-          >
-            <MdQueryStats className="text-2xl" />
-            <span className="sm:block hidden">Task Stats</span>
-          </Link>
+          {[
+            {
+              to: "/",
+              icon: (
+                <img
+                  src="https://www.svgrepo.com/show/255116/stats-graph.svg"
+                  alt="dashboard"
+                  className="w-7 h-7 md:w-8 md:h-8"
+                />
+              ),
+              label: "Dashboard",
+            },
+            {
+              to: "/completeTask",
+              icon: (
+                <img
+                  src="https://www.svgrepo.com/show/375778/check.svg"
+                  alt="completed"
+                  className="w-7 h-7 md:w-8 md:h-8"
+                />
+              ),
+              label: "Completed Tasks",
+            },
+            {
+              to: "/pendingTask",
+              icon: (
+                <img
+                  src="https://www.svgrepo.com/show/256755/file-files-and-folders.svg"
+                  alt="pending"
+                  className="w-7 h-7 md:w-8 md:h-8"
+                />
+              ),
+              label: "Pending Tasks",
+            },
+            {
+              to: "/inProgressTask",
+              icon: (
+                <img
+                  src="https://www.svgrepo.com/show/375829/hourglass.svg"
+                  alt="in progress"
+                  className="w-7 h-7 md:w-8 md:h-8"
+                />
+              ),
+              label: "In Progress Tasks",
+            },
+            {
+              to: "/deployedTask",
+              icon: (
+                <img
+                  src="https://www.svgrepo.com/show/178966/cloud-sky.svg"
+                  alt="deployed"
+                  className="w-7 h-7 md:w-8 md:h-8"
+                />
+              ),
+              label: "Deployed Tasks",
+            },
+            {
+              to: "/deferredTask",
+              icon: (
+                <img
+                  src="https://www.svgrepo.com/show/201779/clock.svg"
+                  alt="deferred"
+                  className="w-7 h-7 md:w-8 md:h-8"
+                />
+              ),
+              label: "Deferred Tasks",
+            },
+            {
+              to: "/addTask",
+              icon: (
+                <img
+                  src="https://www.svgrepo.com/show/422422/add-interface-multimedia.svg"
+                  alt="add task"
+                  className="w-7 h-7 md:w-8 md:h-8"
+                />
+              ),
+              label: "Add New Tasks",
+            },
+            {
+              to: "/statsTask",
+              icon: (
+                <img
+                  src="https://www.svgrepo.com/show/178981/search-search.svg"
+                  alt="all task"
+                  className="w-7 h-7 md:w-8 md:h-8"
+                />
+              ),
+              label: "Task Stats",
+            },
+          ].map(({ to, icon, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) =>
+                `px-6 py-4 font-semibold text-lg flex justify-start items-center gap-2 transition-all duration-200 ${
+                  isActive
+                    ? "text-white bg-indigo-700"
+                    : "text-gray-300 hover:text-white"
+                }`
+              }
+            >
+              <span className="text-2xl">{icon}</span>
+              <span className="sm:block hidden">{label}</span>
+            </NavLink>
+          ))}
         </ul>
       </nav>
     </div>

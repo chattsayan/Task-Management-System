@@ -72,7 +72,7 @@ const TaskCard = ({
         </div>
       </div>
       <div className="footer p-3 flex items-center justify-between">
-        <p className="font-light text-xs block text-black">{`Sayan Chatterjee`}</p>
+        <p className="font-light text-xs block text-black">{assignee}</p>
         <button
           onClick={handleToggleCompleted}
           type="button"
@@ -91,7 +91,7 @@ const TaskCard = ({
 };
 
 TaskCard.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   startDate: PropTypes.string.isRequired,

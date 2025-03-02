@@ -45,8 +45,13 @@ const AddTask = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.title.trim()) {
-      alert("Title is required.");
+    if (
+      !formData.title.trim() ||
+      !formData.description.trim() ||
+      !formData.assignee.trim()
+    ) {
+      alert("Title, Description, and Assignee are required.");
+
       return;
     }
 
@@ -65,14 +70,16 @@ const AddTask = () => {
       endDate: null,
       status: "Pending",
       assignee: "",
-      priority: "",
+      priority: "P0",
     });
   };
 
   return (
     <div className="w-[70%] mx-auto">
       <div className="">
-        <h1 className="text-3xl font-bold my-8 text-center">Add New Task</h1>
+        <h1 className="text-3xl font-bold my-8 text-center ubuntu-bold">
+          Add New Task
+        </h1>
         <div className="grid place-items-center">
           <form
             className="w-full mt-12 sm:mt-0 max-w-lg"
@@ -87,7 +94,7 @@ const AddTask = () => {
                   Title
                 </label>
                 <input
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="title"
                   type="text"
                   placeholder="Task Title"
@@ -108,12 +115,33 @@ const AddTask = () => {
                   Description
                 </label>
                 <textarea
-                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-400 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="description"
                   placeholder="Task Description"
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-wrap -mx-3 mb-2 sm:mb-6">
+              <div className="w-full px-3 mb-6 md:mb-0">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="assignee"
+                >
+                  Assignee
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="assignee"
+                  type="text"
+                  placeholder="Assign To"
+                  name="assignee"
+                  value={formData.assignee}
+                  onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -126,12 +154,13 @@ const AddTask = () => {
                 >
                   Start Date
                 </label>
+
                 <DatePicker
                   selected={formData.startDate}
                   onChange={handleStartDateChange}
                   dateFormat="dd/MM/yyyy"
                   minDate={new Date()} // Prevents selecting past dates
-                  className="appearance-none block w-[280px] sm:w-[245px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none block w-[280px] sm:w-[245px] bg-gray-200 text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 />
               </div>
 
@@ -147,7 +176,7 @@ const AddTask = () => {
                   onChange={handleEndDateChange}
                   dateFormat="dd/MM/yyyy"
                   minDate={formData.startDate} // Ensures end date is not before start date
-                  className="appearance-none block w-[280px] sm:w-[245px] bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="appearance-none block w-[280px] sm:w-[245px] bg-gray-200 text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 />
               </div>
             </div>
@@ -161,7 +190,7 @@ const AddTask = () => {
                   Status
                 </label>
                 <select
-                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="block w-full bg-gray-200 border border-gray-400 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="status"
                   name="status"
                   value={formData.status}
@@ -182,7 +211,7 @@ const AddTask = () => {
                   Priority
                 </label>
                 <select
-                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="block w-full bg-gray-200 border border-gray-400 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="priority"
                   name="priority"
                   value={formData.priority}
@@ -194,9 +223,10 @@ const AddTask = () => {
                 </select>
               </div>
             </div>
+
             <button
               type="submit"
-              className="mt-8 w-full p-3 bg-indigo-500 rounded-lg text-center text-white hover:bg-indigo-300"
+              className="mt-8 w-full p-3 bg-indigo-500 rounded-lg text-center text-white hover:bg-indigo-600"
             >
               Add
             </button>

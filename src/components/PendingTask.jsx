@@ -6,17 +6,21 @@ import { Link } from "react-router-dom";
 const PendingTask = () => {
   const tasks = useSelector(selectAllTasks);
   const completedTasks = tasks.filter((task) => task.status === "Pending");
+  // const pendingTasks = useSelector(selectAllTasks);
 
   return (
     <div className="w-[70%] mx-auto">
       <div className="mt-10">
-        <h1 className="text-3xl font-bold my-8 text-center">Pending Tasks</h1>
+        <h1 className="text-3xl font-bold my-8 text-center ubuntu-bold">
+          Pending Tasks
+        </h1>
       </div>
       {completedTasks.length > 0 ? (
         <div className="flex flex-wrap gap-y-4 gap-x-14 overflow-y-scroll mt-5 h-[50vh] sm:h-[80vh] justify-center">
           {completedTasks.map((task) => (
             <TaskCard
               key={task.id}
+              id={task.id}
               title={task.title}
               description={task.description}
               startDate={task.startDate}

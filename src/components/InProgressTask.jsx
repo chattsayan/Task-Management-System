@@ -10,7 +10,7 @@ const InProgressTask = () => {
   return (
     <div className="w-[70%] mx-auto">
       <div className="mt-10">
-        <h1 className="text-3xl font-bold my-8 text-center">
+        <h1 className="text-3xl font-bold my-8 text-center ubuntu-bold">
           In Progress Tasks
         </h1>
       </div>
@@ -19,6 +19,7 @@ const InProgressTask = () => {
           {completedTasks.map((task) => (
             <TaskCard
               key={task.id}
+              id={task.id}
               title={task.title}
               description={task.description}
               startDate={task.startDate}
