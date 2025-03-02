@@ -48,7 +48,9 @@ const taskSlice = createSlice({
                 ...task,
                 status: task.status === "Completed" ? "Pending" : "Completed",
                 endDate:
-                  task.status === "Completed" ? null : new Date().toISOString(),
+                  task.status === "Completed"
+                    ? task.endDate
+                    : new Date().toISOString(),
               }
             : task
         )
