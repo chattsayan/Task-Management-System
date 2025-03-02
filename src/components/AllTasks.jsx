@@ -7,33 +7,38 @@ import { IoFilterSharp, IoClose } from "react-icons/io5";
 
 const AllTasks = () => {
   const tasks = useSelector(selectAllTasks);
+
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [toggle, setToggle] = useState(false);
   const [statusFilter, setStatusFilter] = useState("All");
   const [priorityFilter, setPriorityFilter] = useState("All");
 
-  const filteredTasks = tasks
-    .filter((task) => {
-      const taskDate = new Date(task.startDate);
-      const startDateObj = startDate ? new Date(startDate) : null;
-      const endDateObj = endDate ? new Date(endDate) : null;
+  const sortedTasks = [...tasks].sort(
+    (a, b) =>
+      new Date(b.updatedAt || b.startDate) -
+      new Date(a.updatedAt || a.startDate)
+  );
 
-      const isDateInRange =
-        (!startDateObj || taskDate >= startDateObj) &&
-        (!endDateObj || taskDate <= endDateObj);
+  const filteredTasks = sortedTasks.filter((task) => {
+    const taskDate = new Date(task.startDate);
+    const startDateObj = startDate ? new Date(startDate) : null;
+    const endDateObj = endDate ? new Date(endDate) : null;
 
-      const isStatusMatch =
-        statusFilter.toLowerCase() === "all" ||
-        task.status.toLowerCase() === statusFilter.toLowerCase();
+    const isDateInRange =
+      (!startDateObj || taskDate >= startDateObj) &&
+      (!endDateObj || taskDate <= endDateObj);
 
-      const isPriorityMatch =
-        priorityFilter.toLowerCase() === "all" ||
-        task.priority.toLowerCase() === priorityFilter.toLowerCase();
+    const isStatusMatch =
+      statusFilter.toLowerCase() === "all" ||
+      task.status.toLowerCase() === statusFilter.toLowerCase();
 
-      return isDateInRange && isStatusMatch && isPriorityMatch;
-    })
-    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+    const isPriorityMatch =
+      priorityFilter.toLowerCase() === "all" ||
+      task.priority.toLowerCase() === priorityFilter.toLowerCase();
+
+    return isDateInRange && isStatusMatch && isPriorityMatch;
+  });
 
   // Function to clear all filters
   const clearFilters = () => {

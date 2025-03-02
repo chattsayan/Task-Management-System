@@ -16,7 +16,7 @@ const CompleteTask = () => {
       </div>
 
       {completedTasks.length > 0 ? (
-        <div className="flex flex-wrap gap-y-4 gap-x-14 justify-center overflow-y-scroll mt-5 h-[50vh] sm:h-[80vh]">
+        <div className="flex flex-wrap gap-y-4 gap-x-14 justify-center overflow-auto mt-5 h-[86vh]">
           {completedTasks.map((task) => (
             <TaskCard
               key={task.id}

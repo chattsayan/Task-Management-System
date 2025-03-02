@@ -21,7 +21,7 @@ const Sidebar = () => {
                 <img
                   src="https://www.svgrepo.com/show/255116/stats-graph.svg"
                   alt="dashboard"
-                  className="w-7 h-7 md:w-8 md:h-8"
+                  className="w-7 h-7 md:w-8 md:h-8 gr"
                 />
               ),
               label: "Dashboard",
@@ -108,7 +108,7 @@ const Sidebar = () => {
               key={to}
               to={to}
               className={({ isActive }) =>
-                `px-6 py-4 font-semibold text-lg flex justify-start items-center gap-2 transition-all duration-200 ${
+                `relative group px-6 py-4 font-semibold text-lg flex justify-start items-center gap-2 transition-all duration-200 ${
                   isActive
                     ? "text-white bg-indigo-700"
                     : "text-gray-300 hover:text-white"
@@ -116,6 +116,11 @@ const Sidebar = () => {
               }
             >
               <span className="text-2xl">{icon}</span>
+              {/* Tooltip for small screens */}
+              <span className="sm:hidden absolute left-full ml-1 bg-transparent text-black text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                {label}
+              </span>
+
               <span className="sm:block hidden">{label}</span>
             </NavLink>
           ))}

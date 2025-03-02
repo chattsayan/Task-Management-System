@@ -15,7 +15,7 @@ const Deployed = () => {
         </h1>
       </div>
       {completedTasks.length > 0 ? (
-        <div className="flex flex-wrap gap-y-4 gap-x-14 overflow-y-scroll mt-5 h-[50vh] sm:h-[80vh] justify-center">
+        <div className="flex flex-wrap gap-y-4 gap-x-14 overflow-y-scroll mt-5 h-[86vh] justify-center">
           {completedTasks.map((task) => (
             <TaskCard
               key={task.id}

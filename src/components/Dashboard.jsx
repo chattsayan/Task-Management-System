@@ -107,9 +107,9 @@ const Dashboard = () => {
         <TaskGraph />
 
         {/* Task Stats */}
-        <h2 className="text-xl font-semibold mb-4 text-center ubuntu-bold">
+        {/* <h2 className="text-xl font-semibold mb-4 text-center ubuntu-bold">
           Task Overview
-        </h2>
+        </h2> */}
         <div className="h-full w-80% mx-auto py-4 px-10">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 place-item-center">
             {stats.map((task, index) => (

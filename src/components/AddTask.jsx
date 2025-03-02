@@ -82,7 +82,7 @@ const AddTask = () => {
         </h1>
         <div className="grid place-items-center">
           <form
-            className="w-full mt-12 sm:mt-0 max-w-lg"
+            className="w-full mt-8 sm:mt-0 max-w-lg"
             onSubmit={handleSubmit}
           >
             <div className="flex flex-wrap -mx-3 mb-2 sm:mb-6">
